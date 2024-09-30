@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import axiosClient from "../../AxiosClient";
 import { useAuthContext } from "../../contexts/AuthProvider";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [deactivateLoginButton, setDeactivateLoginButton] = useState(false);
   const { setUser, setToken } = useAuthContext();
+  const [testToken, setTestToken] = useState(null);
   const [message, setMessage] = useState(null);
 
   const onSubmit = (e) => {
@@ -22,13 +24,16 @@ export default function Login() {
     setMessage(null);
 
     axiosClient
-      .post("/api/login", payload)
+      .post("/login", payload)
       .then(({ data }) => {
+        const token = Cookies.get("token");
         setUser(data.user);
         setToken(data.token);
+        setTestToken(token);
         console.log("Login", data);
       })
       .catch((error) => {
+        console.log(error);
         const response = error.response;
         if (response && response.status === 422) {
           setMessage(response.data.errors);
@@ -44,7 +49,7 @@ export default function Login() {
       password: passwordRef.current.value,
     });
     emailRef.current.value = "";
-    emailRef.current.value = "";
+    passwordRef.current.value = "";
 
     // Once the request was processed, the button is activated after have cleared the fields.
     setDeactivateLoginButton(false);
@@ -55,7 +60,7 @@ export default function Login() {
       id="login"
       className="bg-white py-8 px-4 lg:px-10 w-full max-w-[400px] lg:max-w-[450px] h-fit text-center rounded-lg"
     >
-      <h2 className="text-3xl mb-5 font-bold">Login</h2>
+      <h2 className="text-3xl mb-5 font-bold">Login: {testToken}</h2>
       {message && (
         <div className="alert">
           <p>{message}</p>

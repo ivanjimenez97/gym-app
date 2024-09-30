@@ -4,6 +4,9 @@ import axiosClient from "../../AxiosClient";
 import { useAuthContext } from "../../contexts/AuthProvider.jsx";
 import MdiLightViewDashboard from "../icons/MdiLightViewDashboard";
 import UsersGroupSolid from "../icons/UsersGroupSolid";
+import { PlansIcon } from "../icons/PlansIcon.jsx";
+import { SubscriptionIcon } from "../icons/SubscriptionIcon.jsx";
+import { MembersIcon } from "../icons/MembersIcon.jsx";
 
 export default function Navbar() {
   const { user, setUser, setToken } = useAuthContext();
@@ -19,7 +22,7 @@ export default function Navbar() {
     });
   };
   useEffect(() => {
-    axiosClient.get("/user").then(({ data }) => {
+    axiosClient.get("/verify").then(({ data }) => {
       setUser(data);
     });
   }, []);
@@ -70,25 +73,39 @@ export default function Navbar() {
             </NavLink>
 
             <NavLink
-              to={"/companies"}
+              to={"/plans"}
               className={({ isActive }) =>
                 isActive
                   ? "bg-indigo-500 text-white flex items-center p-3"
                   : "text-gray-700 hover:bg-indigo-100 flex items-center p-3"
               }
             >
-              <span className="ml-3">Empresas</span>
+              <PlansIcon />
+              <span className="ml-3">Planes</span>
             </NavLink>
 
             <NavLink
-              to={"/catalogs"}
+              to={"/subscriptions"}
               className={({ isActive }) =>
                 isActive
                   ? "bg-indigo-500 text-white flex items-center p-3"
                   : "text-gray-700 hover:bg-indigo-100 flex items-center p-3"
               }
             >
-              <span className="ml-3">Catalogos</span>
+              <SubscriptionIcon />
+              <span className="ml-3">Suscripciones</span>
+            </NavLink>
+
+            <NavLink
+              to={"/members"}
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-indigo-500 text-white flex items-center p-3"
+                  : "text-gray-700 hover:bg-indigo-100 flex items-center p-3"
+              }
+            >
+              <MembersIcon />
+              <span className="ml-3">Miembros</span>
             </NavLink>
 
             <NavLink

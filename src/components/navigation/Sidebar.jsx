@@ -1,6 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import MdiLightViewDashboard from "../icons/MdiLightViewDashboard";
 import UsersGroupSolid from "../icons/UsersGroupSolid";
+import { SubscriptionIcon } from "../icons/SubscriptionIcon";
+import { MembersIcon } from "../icons/MembersIcon";
+import { PlansIcon } from "../icons/PlansIcon";
 
 export default function Sidebar() {
   return (
@@ -24,25 +27,39 @@ export default function Sidebar() {
       </NavLink>
 
       <NavLink
-        to={"/companies"}
+        to={"/plans"}
         className={({ isActive }) =>
           isActive
             ? "border-r-4 border-indigo-500 font-bold text-indigo-500 flex items-center py-3 px-5"
             : "text-gray-500 hover:text-indigo-400 flex items-center py-3 px-5"
         }
       >
-        <span className="hidden lg:block px-3">Empresas</span>
+        <PlansIcon />
+        <span className="hidden lg:block px-3">Planes</span>
       </NavLink>
 
       <NavLink
-        to={"/catalogs"}
+        to={"/subscriptions"}
         className={({ isActive }) =>
           isActive
             ? "border-r-4 border-indigo-500 font-bold text-indigo-500 flex items-center py-3 px-5"
             : "text-gray-500 hover:text-indigo-400 flex items-center py-3 px-5"
         }
       >
-        <span className="hidden lg:block px-3">Catalogos</span>
+        <SubscriptionIcon />
+        <span className="hidden lg:block px-3">Suscripciones</span>
+      </NavLink>
+
+      <NavLink
+        to={"/members"}
+        className={({ isActive }) =>
+          isActive
+            ? "border-r-4 border-indigo-500 font-bold text-indigo-500 flex items-center py-3 px-5"
+            : "text-gray-500 hover:text-indigo-400 flex items-center py-3 px-5"
+        }
+      >
+        <MembersIcon />
+        <span className="hidden lg:block px-3">Miembros</span>
       </NavLink>
 
       <NavLink
