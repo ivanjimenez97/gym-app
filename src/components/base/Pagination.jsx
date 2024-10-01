@@ -1,5 +1,5 @@
 // Pagination.jsx
-import React from 'react';
+import React from "react";
 
 const Pagination = ({ meta, onPageChange }) => {
   const handlePageChange = (url) => {
@@ -12,9 +12,13 @@ const Pagination = ({ meta, onPageChange }) => {
     <div className="flex flex-wrap justify-center mt-4">
       <button
         className={`mx-1 px-3 py-1 rounded ${
-          meta.current_page === 1 ? 'bg-blue-500 text-white cursor-not-allowed' : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+          meta.current_page === 1
+            ? "bg-blue-500 text-white cursor-not-allowed"
+            : "bg-gray-300 text-gray-700 hover:bg-gray-400"
         }`}
-        onClick={() => handlePageChange(meta.links.find(link => link.label === '1').url)}
+        onClick={() =>
+          handlePageChange(meta.links.find((link) => link.label === "1").url)
+        }
         disabled={meta.current_page === 1}
       >
         First
@@ -24,20 +28,28 @@ const Pagination = ({ meta, onPageChange }) => {
           key={index}
           className={`mx-1 px-3 py-1 rounded ${
             link.active
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+              ? "bg-blue-500 text-white"
+              : "bg-gray-300 text-gray-700 hover:bg-gray-400"
           }`}
           onClick={() => handlePageChange(link.url)}
           disabled={!link.url}
         >
-          {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+          {link.label
+            ? link.label.replace("&laquo;", "«").replace("&raquo;", "»")
+            : ""}
         </button>
       ))}
       <button
         className={`mx-1 px-3 py-1 rounded ${
-          meta.current_page === meta.last_page ? 'bg-blue-500 text-white cursor-not-allowed' : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+          meta.current_page === meta.last_page
+            ? "bg-blue-500 text-white cursor-not-allowed"
+            : "bg-gray-300 text-gray-700 hover:bg-gray-400"
         }`}
-        onClick={() => handlePageChange(meta.links.find(link => link.label === String(meta.last_page)).url)}
+        onClick={() =>
+          handlePageChange(
+            meta.links.find((link) => link.label === String(meta.last_page)).url
+          )
+        }
         disabled={meta.current_page === meta.last_page}
       >
         Last

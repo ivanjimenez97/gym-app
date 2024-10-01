@@ -123,6 +123,7 @@ export default function UsersIndex() {
                 <tr className="border-b text-gray-700 font-bold">
                   <th className="py-3 border text-center">ID</th>
                   <th className="py-3 border text-center">Nombre</th>
+                  <th className="py-3 border text-center">Apellido</th>
                   <th className="py-3 border text-center">Correo</th>
                   <th className="py-3 border text-center">Opciones</th>
                 </tr>
@@ -133,7 +134,8 @@ export default function UsersIndex() {
                     <td className="py-1 px-3 border text-center">
                       {record.id}
                     </td>
-                    <td className="py-1 px-3 border">{record.name}</td>
+                    <td className="py-1 px-3 border">{record.firstName}</td>
+                    <td className="py-1 px-3 border">{record.lastName}</td>
                     <td className="py-1 px-3 border">{record.email}</td>
                     <td className="py-1 px-3 border flex flex-wrap justify-center items-center">
                       <Link
