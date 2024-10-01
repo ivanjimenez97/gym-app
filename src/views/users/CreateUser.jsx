@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PageTitle from "../../components/base/PageTitle";
 import axiosClient from "../../AxiosClient";
@@ -6,36 +6,59 @@ import AlertMessage from "../../components/base/AlertMessage";
 
 export default function CreateUser() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
+  const [roles, setRoles] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [roleId, setRoleId] = useState(null);
   const [errors, setErrors] = useState(null);
   const [message, setMessage] = useState(null);
+
+  const getData = async () => {
+    try {
+      const res = await axiosClient.get("/roles");
+      setRoles(res.data);
+      console.log("Roles Data", res.data);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     const data = {
-      name: name,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password,
-      password_confirmation: confirmPassword
+      password_confirmation: confirmPassword,
+      phone: phone,
+      roleId: roleId,
     };
 
     axiosClient
       .post("/users", data)
       .then((res) => {
-        if(res.status === 201)
-          {
-            setName("");
-            setEmail("");
-            setPassword("");
-            setConfirmPassword("");
-            setErrors(null);
-            setMessage("Registro creado exitosamente.");
-            navigate('/users')
-          }
+        if (res.status === 201) {
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+          setPhone("");
+          setRoleId(0);
+          setErrors(null);
+          setMessage("Registro creado exitosamente.");
+          navigate("/users");
+        }
       })
       .catch((error) => {
         const res = error.response;
@@ -51,7 +74,7 @@ export default function CreateUser() {
       <PageTitle classes={"mb-5"} title={"Crear Usuario"} />
 
       <div className="bg-white px-4 py-10 rounded-lg">
-      {message && (
+        {message && (
           <AlertMessage
             classes={"bg-green-500 text-white mb-5"}
             message={message}
@@ -70,15 +93,29 @@ export default function CreateUser() {
         <form onSubmit={onSubmit}>
           <div className="flex flex-wrap items-center mb-4">
             <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
-              <label htmlFor="name" className="font-medium w-full mb-3">
+              <label htmlFor="firstName" className="font-medium w-full mb-3">
                 Nombre:
               </label>
               <input
                 type="text"
-                name="name"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                name="firstName"
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="bg-white border rounded-lg p-2 w-full"
+                required
+              />
+            </div>
+            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+              <label htmlFor="lastName" className="font-medium w-full mb-3">
+                Apellido:
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 className="bg-white border rounded-lg p-2 w-full"
                 required
               />
@@ -127,6 +164,42 @@ export default function CreateUser() {
                 className="bg-white border rounded-lg p-2 w-full"
                 required
               />
+            </div>
+            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+              <label htmlFor="phone" className="font-medium w-full mb-3">
+                Telefono:
+              </label>
+              <input
+                type="text"
+                name="phone"
+                id="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="bg-white border rounded-lg p-2 w-full"
+                required
+              />
+            </div>
+            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+              <label htmlFor="roles" className="font-medium w-full mb-3">
+                Roles:
+              </label>
+              <select
+                id="roles"
+                name="roles"
+                className="bg-white border rounded-lg p-2 w-full"
+                onChange={(e) => setRoleId(e.target.value)}
+              >
+                <option value={0} disabled>
+                  Selecciona una opción
+                </option>
+                {roles && roles.length > 0
+                  ? roles.map((role, index) => (
+                      <option key={index} value={role.id}>
+                        {role.name}
+                      </option>
+                    ))
+                  : ""}
+              </select>
             </div>
           </div>
 

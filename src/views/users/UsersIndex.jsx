@@ -8,6 +8,7 @@ import Delete from "../../components/icons/Delete";
 import Modal from "../../components/base/Modal";
 import Pagination from "../../components/base/Pagination";
 import SearchField from "../../components/base/SearchField";
+import { FormatLongDateTime } from "../../components/hooks/FormatDate";
 
 export default function UsersIndex() {
   const [records, setRecords] = useState([]);
@@ -141,7 +142,9 @@ export default function UsersIndex() {
                       <Link
                         to={`/users/${record.id}`}
                         className="bg-blue-700 hover:bg-blue-500 focus:bg-blue-400 p-2 text-white rounded-lg"
-                        title={`Editar ${record.name}`}
+                        title={`Editar ${
+                          record.firstName + ` ` + record.lastName
+                        }`}
                       >
                         <Edit />
                       </Link>
@@ -150,7 +153,9 @@ export default function UsersIndex() {
                         type="button"
                         className="bg-red-700 hover:bg-red-500 focus:bg-red-400 p-2 text-white rounded-lg"
                         onClick={() => handleDeleteClick(record)}
-                        title={`Eliminar ${record.name}`}
+                        title={`Eliminar ${
+                          record.firstName + ` ` + record.lastName
+                        }`}
                       >
                         <Delete />
                       </button>
@@ -196,8 +201,9 @@ export default function UsersIndex() {
           />
         )}
         <p className="font-normal text-center">
-          <b>Nombre:</b> <br />
-          {selectedRecord && selectedRecord.name}
+          <b>Nombre Completo:</b> <br />
+          {selectedRecord &&
+            `${selectedRecord.firstName} ${selectedRecord.lastName}`}
         </p>
         <p className="font-normal text-center">
           <b>Correo:</b> <br />
@@ -205,7 +211,9 @@ export default function UsersIndex() {
         </p>
         <p className="font-normal text-center">
           <b>Fecha de Creacion:</b> <br />
-          {selectedRecord && selectedRecord.created_at}
+          {selectedRecord && (
+            <FormatLongDateTime date={selectedRecord.createdAt} />
+          )}
         </p>
       </Modal>
     </div>

@@ -5,6 +5,7 @@ import NotFound from "./views/NotFound";
 import Dashboard from "./views/dashboard/Dashboard";
 import DefaultLayout from "./components/layouts/DefaultLayout";
 import UsersIndex from "./views/users/UsersIndex";
+import CreateUser from "./views/users/CreateUser";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/users",
         element: <UsersIndex />,
+      },
+      {
+        path: "/users/create",
+        element: <CreateUser />,
       },
       {
         path: "*",
