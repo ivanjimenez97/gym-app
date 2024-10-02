@@ -8,10 +8,14 @@ export default function EditUser() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
+  const [roles, setRoles] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [roleId, setRoleId] = useState(null);
   const [errors, setErrors] = useState(null);
   const [message, setMessage] = useState(null);
 
@@ -22,10 +26,14 @@ export default function EditUser() {
     console.log("Edit Record Data: ", res);
 
     if (res.status === 200) {
-      setName(res.data.name);
-      setEmail(res.data.email);
-      setPassword(res.data.password);
-      setConfirmPassword(res.data.password);
+      setRoles(res.data.roles);
+      setFirstName(res.data.record.firstName);
+      setLastName(res.data.record.lastName);
+      setEmail(res.data.record.email);
+      setPassword(res.data.record.password);
+      setConfirmPassword(res.data.record.password);
+      setPhone(res.data.record.phone);
+      setRoleId(res.data.record.roleId);
       setLoading(false);
     }
   };
@@ -38,37 +46,51 @@ export default function EditUser() {
     e.preventDefault();
 
     const data = {
-      name: name,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password,
-      password_confirmation: confirmPassword,
+      phone: phone,
+      roleId: roleId,
     };
 
-    axiosClient
-      .put(`/users/${id}`, data)
-      .then((res) => {
-        if (res.status === 200 || res.status === 201) {
-          setName("");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-          setErrors(null);
-          setMessage("Registro actualizado exitosamente.");
-          navigate("/users");
-        }
-      })
-      .catch((error) => {
-        const res = error.response;
-        if (res && res.status === 422) {
-          setErrors(res.data.errors);
-          setMessage(null);
-        }
+    if (password === confirmPassword) {
+      axiosClient
+        .patch(`/users/${id}`, data)
+        .then((res) => {
+          if (res.status === 200 || res.status === 201) {
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setPhone("");
+            setRoleId(null);
+            setErrors(null);
+            setMessage("Registro actualizado exitosamente.");
+            navigate("/users");
+          }
+        })
+        .catch((error) => {
+          const res = error.response;
+          if (res && res.status === 422) {
+            setErrors(res.data.errors);
+            setMessage(null);
+          }
+        });
+    } else {
+      setErrors({
+        errors: ["Las contraseñas no coinciden."],
       });
+    }
   };
 
   return (
     <div className="mt-5">
-      <PageTitle classes={"mb-5"} title={"Editar Usuario" + ` - ${name}`} />
+      <PageTitle
+        classes={"mb-5"}
+        title={"Editar Usuario" + ` - ${firstName} ${lastName}`}
+      />
 
       <div className="bg-white px-4 py-10 rounded-lg">
         {loading && (
@@ -97,21 +119,35 @@ export default function EditUser() {
         {!loading && (
           <form onSubmit={onSubmit}>
             <div className="flex flex-wrap items-center mb-4">
-              <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
-                <label htmlFor="name" className="font-medium w-full mb-3">
+              <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
+                <label htmlFor="firstName" className="font-medium w-full mb-3">
                   Nombre:
                 </label>
                 <input
                   type="text"
-                  name="name"
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  name="firstName"
+                  id="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   className="bg-white border rounded-lg p-2 w-full"
                   required
                 />
               </div>
-              <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+              <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
+                <label htmlFor="lastName" className="font-medium w-full mb-3">
+                  Apellido:
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="bg-white border rounded-lg p-2 w-full"
+                  required
+                />
+              </div>
+              <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
                 <label htmlFor="email" className="font-medium w-full mb-3">
                   Correo:
                 </label>
@@ -125,7 +161,7 @@ export default function EditUser() {
                   required
                 />
               </div>
-              <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+              <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
                 <label htmlFor="password" className="font-medium w-full mb-3">
                   Contraseña:
                 </label>
@@ -137,7 +173,7 @@ export default function EditUser() {
                   className="bg-white border rounded-lg p-2 w-full"
                 />
               </div>
-              <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+              <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
                 <label
                   htmlFor="confirmPassword"
                   className="font-medium w-full mb-3"
@@ -151,6 +187,43 @@ export default function EditUser() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="bg-white border rounded-lg p-2 w-full"
                 />
+              </div>
+              <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
+                <label htmlFor="phone" className="font-medium w-full mb-3">
+                  Telefono:
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="bg-white border rounded-lg p-2 w-full"
+                  required
+                />
+              </div>
+              <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
+                <label htmlFor="email" className="font-medium w-full mb-3">
+                  Roles:
+                </label>
+                <select
+                  id="roles"
+                  name="roles"
+                  value={roleId}
+                  onChange={(e) => setRoleId(e.target.value)}
+                  className="bg-white border rounded-lg p-2 w-full"
+                >
+                  <option value={0} disabled>
+                    Selecciona una opción
+                  </option>
+                  {roles && roles.length > 0
+                    ? roles.map((role, index) => (
+                        <option key={index} value={role.id}>
+                          {role.name}
+                        </option>
+                      ))
+                    : ""}
+                </select>
               </div>
             </div>
 

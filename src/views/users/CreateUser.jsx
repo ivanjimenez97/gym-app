@@ -92,7 +92,7 @@ export default function CreateUser() {
 
         <form onSubmit={onSubmit}>
           <div className="flex flex-wrap items-center mb-4">
-            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+            <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
               <label htmlFor="firstName" className="font-medium w-full mb-3">
                 Nombre:
               </label>
@@ -106,7 +106,7 @@ export default function CreateUser() {
                 required
               />
             </div>
-            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+            <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
               <label htmlFor="lastName" className="font-medium w-full mb-3">
                 Apellido:
               </label>
@@ -120,7 +120,7 @@ export default function CreateUser() {
                 required
               />
             </div>
-            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+            <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
               <label htmlFor="email" className="font-medium w-full mb-3">
                 Correo:
               </label>
@@ -134,7 +134,7 @@ export default function CreateUser() {
                 required
               />
             </div>
-            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+            <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
               <label htmlFor="password" className="font-medium w-full mb-3">
                 Contraseña:
               </label>
@@ -148,7 +148,7 @@ export default function CreateUser() {
                 required
               />
             </div>
-            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+            <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
               <label
                 htmlFor="confirmPassword"
                 className="font-medium w-full mb-3"
@@ -165,7 +165,7 @@ export default function CreateUser() {
                 required
               />
             </div>
-            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+            <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
               <label htmlFor="phone" className="font-medium w-full mb-3">
                 Telefono:
               </label>
@@ -179,7 +179,7 @@ export default function CreateUser() {
                 required
               />
             </div>
-            <div className="basis-full md:basis-1/2 xl:basis-1/3 px-2 mb-4">
+            <div className="basis-full sm:basis-1/2 xl:basis-1/3 px-2 mb-4">
               <label htmlFor="roles" className="font-medium w-full mb-3">
                 Roles:
               </label>

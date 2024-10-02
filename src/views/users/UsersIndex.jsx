@@ -29,7 +29,7 @@ export default function UsersIndex() {
           search: keyword,
         },
       });
-      setRecords(res.data.data);
+      setRecords(res.data.records);
       setMeta(res.data.meta);
       console.log("Records:", res);
     } catch (error) {
@@ -140,7 +140,7 @@ export default function UsersIndex() {
                     <td className="py-1 px-3 border">{record.email}</td>
                     <td className="py-1 px-3 border flex flex-wrap justify-center items-center">
                       <Link
-                        to={`/users/${record.id}`}
+                        to={`/users/edit/${record.id}`}
                         className="bg-blue-700 hover:bg-blue-500 focus:bg-blue-400 p-2 text-white rounded-lg"
                         title={`Editar ${
                           record.firstName + ` ` + record.lastName
