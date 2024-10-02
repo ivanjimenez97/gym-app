@@ -1,8 +1,21 @@
-# React + Vite
+﻿# Gym Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Frontend
 
-Currently, two official plugins are available:
+Project generated with _[Vite](https://vitejs.dev/)_.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React.js
+- React Router Dom
+- Axios
+- js-cookie
+- Tailwindcss
+
+## Setting up the local environment
+
+### Server
+
+1. Clone this repository on a specific path.
+2. Copy the .env.example file and and rename it as `.env`.
+3. Update the `.env` file with the data you will use for this project.
+4. Open the terminal and run `npm install` to install all the project dependencies of the server.
+5. Then, run `npm run dev` to execute the project environment.
