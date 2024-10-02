@@ -7,6 +7,9 @@ import DefaultLayout from "./components/layouts/DefaultLayout";
 import UsersIndex from "./views/users/UsersIndex";
 import CreateUser from "./views/users/CreateUser";
 import EditUser from "./views/users/EditUser";
+import MembersIndex from "./views/members/MembersIndex";
+import CreateMember from "./views/members/CreateMember";
+import EditMember from "./views/members/EditMember";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +37,19 @@ const router = createBrowserRouter([
       {
         path: "/users/edit/:id",
         element: <EditUser />,
+      },
+      // ***** Members *****
+      {
+        path: "/members",
+        element: <MembersIndex />,
+      },
+      {
+        path: "/members/create",
+        element: <CreateMember />,
+      },
+      {
+        path: "/members/edit/:id",
+        element: <EditMember />,
       },
       // ***** NOT FOUND *****
       {
