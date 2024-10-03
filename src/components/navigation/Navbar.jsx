@@ -60,44 +60,7 @@ export default function Navbar() {
         {isOpen && (
           <div className="md:hidden bg-white shadow-lg w-full">
             <NavLink
-              to={"/dashboard"}
-              activeClassName="bg-indigo-500 text-white"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-indigo-500 text-white flex items-center p-3"
-                  : "text-gray-700 hover:bg-indigo-100 flex items-center p-3"
-              }
-            >
-              <MdiLightViewDashboard className="w-6 h-6" />
-              <span className="ml-3">Dashboard</span>
-            </NavLink>
-
-            <NavLink
-              to={"/plans"}
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-indigo-500 text-white flex items-center p-3"
-                  : "text-gray-700 hover:bg-indigo-100 flex items-center p-3"
-              }
-            >
-              <PlansIcon />
-              <span className="ml-3">Planes</span>
-            </NavLink>
-
-            <NavLink
-              to={"/subscriptions"}
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-indigo-500 text-white flex items-center p-3"
-                  : "text-gray-700 hover:bg-indigo-100 flex items-center p-3"
-              }
-            >
-              <SubscriptionIcon />
-              <span className="ml-3">Suscripciones</span>
-            </NavLink>
-
-            <NavLink
-              to={"/members"}
+              to={"/comments"}
               className={({ isActive }) =>
                 isActive
                   ? "bg-indigo-500 text-white flex items-center p-3"
@@ -105,7 +68,7 @@ export default function Navbar() {
               }
             >
               <MembersIcon />
-              <span className="ml-3">Miembros</span>
+              <span className="ml-3">Comments</span>
             </NavLink>
 
             <NavLink

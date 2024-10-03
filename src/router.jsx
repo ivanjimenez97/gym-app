@@ -10,6 +10,7 @@ import EditUser from "./views/users/EditUser";
 import MembersIndex from "./views/members/MembersIndex";
 import CreateMember from "./views/members/CreateMember";
 import EditMember from "./views/members/EditMember";
+import CommentIndex from "./views/comments/CommentIndex";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      // ***** Comments *****
+      {
+        path: "/comments",
+        element: <CommentIndex />,
       },
       // ***** USERS *****
       {
